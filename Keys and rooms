@@ -1,1 +1,12 @@
 
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        def visiting(room):
+            if room not in visited: 
+                visited.add(room)
+                for n in rooms[room]:
+                    visiting(n)
+        visited=set()
+        visiting(0)
+        return len(visited) == len(rooms)
+        
