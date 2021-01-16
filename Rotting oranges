@@ -1,0 +1,38 @@
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        fresh = set()
+        rotton = set()
+        m = len(grid)
+        n = len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 2:
+                    rotton.add((i,j))
+                elif grid[i][j] == 1:
+                    fresh.add((i, j)) 
+        mins = 0
+        dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+        while len(fresh) > 0:
+            infected = set()
+            for r in rotton:
+                row = r[0]
+                col = r[1]
+                for dir in dirs:
+                    new_row = dir[0] + row
+                    new_col = dir[1] + col
+                    if (new_row, new_col) in fresh:
+                        fresh.remove((new_row, new_col))
+                        infected.add((new_row, new_col))   
+            if len(infected) == 0:
+                return -1
+            rotton = infected
+            mins += 1
+        return mins
+
+        
+            
+                
+                
+        
+        
+        
