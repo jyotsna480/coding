@@ -1,0 +1,27 @@
+
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        r = len(image)
+        c = len(image[0])
+        
+        visited = [False]*r
+        for i in range(r):
+            visited[i] = [False]*c
+        
+        def fill(i,j,source_value):
+            if i<0 or i>=r or j<0 or j>=c:
+                return
+            
+            curr_value = image[i][j]
+            
+            if curr_value == source_value and visited[i][j] == False:
+                visited[i][j] = True
+                fill(i+1,j,curr_value)
+                fill(i-1,j,curr_value)
+                fill(i,j+1,curr_value)
+                fill(i,j-1,curr_value)
+                image[i][j] = newColor
+        
+        fill(sr,sc,image[sr][sc])
+        return image
+        
